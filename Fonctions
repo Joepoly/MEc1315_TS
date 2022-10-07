@@ -84,6 +84,6 @@ def fusion(*args):
         v=np.vstack(vi)
         n=np.vstack(ni)
         
-        return f,v,n
+   return f,v,n
     
     
