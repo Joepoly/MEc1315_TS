@@ -60,7 +60,7 @@ def centre_sur_axe(objet,axe):
         z_min=min(v[:,2])
         v=v-np.array([0,0,z_min])
         return f,n,v
-
+   
 def centre_000(objet):
     f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     x_centre= max(v[:,0])-min(v[:,0])/2
@@ -68,5 +68,22 @@ def centre_000(objet):
     z_centre= max(v[:,2])-min(v[:,2])/2
     v=v - np.array([x_centre,y_centre,z_centre])
     return f,v,n
+ 
+def fusion(*args):
+    fi,vi,ni=[],[],[]
+    nv=0
+    
+    for j in range (len(args)):
+        fi.append(args[j][0]+nv)
+        vi.append(args[j][1])
+        ni.append(args[j][2])
+        
+        nv= nv+len(vi)
+        
+        f=np.vstack(fi)
+        v=np.vstack(vi)
+        n=np.vstack(ni)
+        
+        return f,v,n
     
     
