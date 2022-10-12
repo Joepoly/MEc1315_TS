@@ -120,7 +120,3 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,position_reference):
             v=np.vstack(v,np.dot(v1,Rz(j*angle)))
             n=np.vstack(n,np.dot(n1,Rz(j*angle)))
             return f,v,n
-    
-    
-#Test pour voir si Github marche mdr nique ma ...
-# bonjour test de marko esti
