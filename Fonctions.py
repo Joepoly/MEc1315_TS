@@ -87,4 +87,5 @@ def fusion(*args):
    return f,v,n
     
     
-#Test pour voir si Github marche mdr nique ma 
+#Test pour voir si Github marche mdr nique ma ...
+# bonjour test de marko esti
