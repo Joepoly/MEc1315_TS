@@ -84,7 +84,42 @@ def fusion(*args):
         v=np.vstack(vi)
         n=np.vstack(ni)
         
-   return f,v,n
+        return f,v,n
+    
+    
+def repetition_circulaire(objet,nb_repetition,axe_rotation,position_reference):
+    f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
+    nv=len(v1)
+    angle= 2*np.pi/nb_repetition
+    f,v,n=np.empty((0,3)),np.empty((0,3)),np.empty((0,3))
+    
+    v1=v1[:,0]+position_reference[0]
+    v1=v1[:,1]+position_reference[1]
+    v1=v1[:,2]+position_reference[2]
+    
+    if axe_rotation=='x':
+        for i in range (nb_repetition):
+            stack = nv*i
+            f=np.vstack(f,f1+stack)
+            v=np.vstack(v,np.dot(v1,Rx(j*angle)))
+            n=np.vstack(n,np.dot(n1,Rx(j*angle)))
+            return f,v,n
+        
+    elif axe_rotation=='y':
+        for i in range (nb_repetition):
+            stack = nv*i
+            f=np.vstack(f,f1+stack)
+            v=np.vstack(v,np.dot(v1,Ry(j*angle)))
+            n=np.vstack(n,np.dot(n1,Ry(j*angle)))
+            return f,v,n
+        
+    elif axe_rotation=='z':
+        for i in range (nb_repetition):
+            stack = nv*i
+            f=np.vstack(f,f1+stack)
+            v=np.vstack(v,np.dot(v1,Rz(j*angle)))
+            n=np.vstack(n,np.dot(n1,Rz(j*angle)))
+            return f,v,n
     
     
 #Test pour voir si Github marche mdr nique ma ...
