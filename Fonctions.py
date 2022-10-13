@@ -96,8 +96,8 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
     angle= 2*np.pi/nb_repetition
     
     if axe_rotation=='x':
-        v1[:,0]=v1[:,0]+offset
         v1[:,1]=v1[:,1]+offset
+        v1[:,2]=v1[:,2]+offset
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
@@ -109,7 +109,7 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
         
     elif axe_rotation=='y':
         v1[:,0]=v1[:,0]+offset
-        v1[:,1]=v1[:,1]+offset
+        v1[:,2]=v1[:,2]+offset
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
@@ -130,4 +130,46 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
             v=np.vstack((v,np.dot(v1,Rz(i*angle))))
             n=np.vstack((n,np.dot(n1,Rz(i*angle))))
         return f,v,n
+        
+def repetition_rectangulaire(objet,nb_repetition,axe_repetition,distance):
+    f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
+    nv=len(v1)
+    offset = 0
+    
+    if axe_repetition == 'x':
+        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
+        
+        for i in range (nb_repetition):
+            stack = nv*i
+            v1[:,0] = v1[:,0] + offset
+            f=np.vstack((f,f1+stack))
+            v=np.vstack((v,v1))
+            n=np.vstack((n,n1))
+            offset = distance/nb_repetition
+        return f,v,n
+        
+    elif axe_repetition == 'y':
+        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
+        
+        for i in range (nb_repetition):
+            stack = nv*i
+            v1[:,1] = v1[:,1] + offset
+            f=np.vstack((f,f1+stack))
+            v=np.vstack((v,v1))
+            n=np.vstack((n,n1))
+            offset = distance/nb_repetition
+        return f,v,n
+        
+    elif axe_repetition == 'z':
+        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
+        
+        for i in range (nb_repetition):
+            stack = nv*i
+            v1[:,2] = v1[:,2] + offset
+            f=np.vstack((f,f1+stack))
+            v=np.vstack((v,v1))
+            n=np.vstack((n,n1))
+            offset = distance/nb_repetition
+        return f,v,n
+        
         
