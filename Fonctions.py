@@ -2,17 +2,17 @@ import numpy as np
 from MEC1315_STL import *
 
 
-def translation(objet,x,y,z):
+def Translation(objet,x,y,z):
     f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     v=v+np.array([x,y,z])
     return f,v,n
 
-def homotetie(objet,facteur):
+def Homotetie(objet,facteur):
     f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     v=v*facteur
     return f,v,n
 
-def rotation_x_y_z(objet,axe,angle):
+def Rotation_x_y_z(objet,axe,angle):
     if axe =='x':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         rad=np.radians(degre)
@@ -34,7 +34,7 @@ def rotation_x_y_z(objet,axe,angle):
         n=np.dot(n, Rz(rad))
         return f,v,n
     
-def affinite (objet,facteur_x,facteur_y,facteur_z):
+def Affinite (objet,facteur_x,facteur_y,facteur_z):
     f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     v[:,0]=v[:,0]*facteur_x
     v[:,1]=v[:,1]*facteur_y
@@ -42,7 +42,7 @@ def affinite (objet,facteur_x,facteur_y,facteur_z):
     n=CalculNormal(f,v)
     return f,v,n    
     
-def centre_sur_axe(objet,axe): 
+def Centre_Sur_Axe(objet,axe): 
     if axe =='x':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         x_min=min(v[:,0])
@@ -61,7 +61,7 @@ def centre_sur_axe(objet,axe):
         v=v-np.array([0,0,z_min])
         return f,n,v
 
-def centre_000(objet):
+def Centre_000(objet):
     f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     x_centre= (max(v[:,0])-min(v[:,0]))/2
     y_centre= (max(v[:,1])-min(v[:,1]))/2
@@ -90,7 +90,7 @@ def Fusion(*args):
     return f,v,n
 
 
-def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
+def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset):
     f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     nv=len(v1)
     angle= 2*np.pi/nb_repetition
@@ -131,7 +131,7 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
             n=np.vstack((n,np.dot(n1,Rz(i*angle))))
         return f,v,n
         
-def repetition_rectangulaire(objet,nb_repetition,axe_repetition,distance):
+def Repetition_Rectangulaire(objet,nb_repetition,axe_repetition,distance):
     f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     nv=len(v1)
     offset = 0
