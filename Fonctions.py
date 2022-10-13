@@ -72,19 +72,18 @@ def centre_000(objet):
         
     
 def fusion(*args):
-    F,V,N=[],[],[]
+    fj,vj,nj=[],[],[]
     nv=0
-    
     for i in range(len(args)):
-        F.append(args[i][0] + nv)
-        V.append(args[i][1])
-        N.append(args[i][2])
+        fj.append(args[i][0] + nv)
+        vj.append(args[i][1])
+        vj.append(args[i][2])
 
-        nv= nv+len(V[i])
+        nv= nv+len(fj[i])
         
-        f=np.vstack(F)
-        v=np.vstack(V)
-        n=np.vstack(N)
+        f=np.vstack(fj)
+        v=np.vstack(vj)
+        n=np.vstack(nj)
         
     return f,v,n
 
