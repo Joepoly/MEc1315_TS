@@ -93,13 +93,9 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
     nv=len(v1)
     angle= 2*np.pi/nb_repetition
     
- 
-    
     if axe_rotation=='x':
         v1[:,0]=v1[:,0]+offset
         v1[:,1]=v1[:,1]+offset
-       
-        
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
@@ -112,7 +108,6 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
     elif axe_rotation=='y':
         v1[:,0]=v1[:,0]+offset
         v1[:,1]=v1[:,1]+offset
-        
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
@@ -125,7 +120,6 @@ def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
     elif axe_rotation=='z':
         v1[:,0]=v1[:,0]+offset
         v1[:,1]=v1[:,1]+offset
-        
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
