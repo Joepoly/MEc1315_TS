@@ -15,21 +15,21 @@ def Homotetie(objet,facteur):
 def Rotation_x_y_z(objet,axe,angle):
     if axe =='x':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(degre)
+        rad=np.radians(angle)
         v=np.dot(v,Rx(rad))
         n=np.dot(n,Rx(rad))
         return f,v,n
     
     elif axe =='y':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(degre)
+        rad=np.radians(angle)
         v=np.dot(v, Ry(rad))
         n=np.dot(n, Ry(rad))
         return f,v,n
     
     elif axe =='z':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(degre)
+        rad=np.radians(angle)
         v=np.dot(v, Rz(rad))
         n=np.dot(n, Rz(rad))
         return f,v,n
@@ -49,13 +49,13 @@ def Centre_Sur_Axe(objet,axe):
         v=v-np.array([x_min,0,0])
         return f,n,v
     
-    if axe == 'y':
+    elif axe == 'y':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         y_min=min(v[:,1])
         v=v-np.array([0,y_min,0])
         return f,n,v
     
-    if axe =='z':
+    elif axe =='z':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         z_min=min(v[:,2])
         v=v-np.array([0,0,z_min])
@@ -90,14 +90,14 @@ def Fusion(*args):
     return f,v,n
 
 
-def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset):
+def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset_x,offset_y,offset_z):
     f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     nv=len(v1)
     angle= 2*np.pi/nb_repetition
     
     if axe_rotation=='x':
-        v1[:,1]=v1[:,1]+offset
-        v1[:,2]=v1[:,2]+offset
+        v1[:,1]=v1[:,1]+offset_y
+        v1[:,2]=v1[:,2]+offset_z
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
@@ -108,20 +108,20 @@ def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset):
         return f,v,n
         
     elif axe_rotation=='y':
-        v1[:,0]=v1[:,0]+offset
-        v1[:,2]=v1[:,2]+offset
+        v1[:,0]=v1[:,0]+offset_x
+        v1[:,2]=v1[:,2]+offset_z
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
             stack = nv*i
             f=np.vstack((f,f1+stack))
             v=np.vstack((v,np.dot(v1,Ry(i*angle))))
-            n=np.vstack((n,np.dot(n1,Ry(i*angle))))
+            n=np.vstack((n,n1))
         return f,v,n
         
     elif axe_rotation=='z':
-        v1[:,0]=v1[:,0]+offset
-        v1[:,1]=v1[:,1]+offset
+        v1[:,0]=v1[:,0]+offset_x
+        v1[:,1]=v1[:,1]+offset_y
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
         for i in range (nb_repetition):
