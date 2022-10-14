@@ -15,21 +15,21 @@ def homotetie(objet,facteur):
 def rotation_x_y_z(objet,axe,angle):
     if axe =='x':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(degre)
+        rad=np.radians(angle)
         v=np.dot(v,Rx(rad))
         n=np.dot(n,Rx(rad))
         return f,v,n
     
     elif axe =='y':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(degre)
+        rad=np.radians(angle)
         v=np.dot(v, Ry(rad))
         n=np.dot(n, Ry(rad))
         return f,v,n
     
     elif axe =='z':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(degre)
+        rad=np.radians(angle)
         v=np.dot(v, Rz(rad))
         n=np.dot(n, Rz(rad))
         return f,v,n
@@ -66,7 +66,7 @@ def centre_000(objet):
     x_centre= (max(v[:,0])-min(v[:,0]))/2
     y_centre= (max(v[:,1])-min(v[:,1]))/2
     z_centre= (max(v[:,2])-min(v[:,2]))/2
-    v=v - np.array([x_centre,y_centre,z_centre])
+    v= v - np.array([x_centre,y_centre,z_centre])
     return f,v,n
     
         
@@ -89,11 +89,11 @@ def Fusion(*args):
         
     return f,v,n
 
-
-def repetition_circulaire(objet,nb_repetition,axe_rotation,offset):
+#coeff_pi : 1=pi 2=2pi ....
+def repetition_circulaire(objet,nb_repetition,axe_rotation,offset,coeff_pi):
     f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     nv=len(v1)
-    angle= 2*np.pi/nb_repetition
+    angle= coeff_pi*np.pi/nb_repetition
     
     if axe_rotation=='x':
         v1[:,1]=v1[:,1]+offset
@@ -139,7 +139,7 @@ def repetition_rectangulaire(objet,nb_repetition,axe_repetition,distance):
     if axe_repetition == 'x':
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
-        for i in range (nb_repetition):
+        for i in range (nb_repetition+1):
             stack = nv*i
             v1[:,0] = v1[:,0] + offset
             f=np.vstack((f,f1+stack))
@@ -151,7 +151,7 @@ def repetition_rectangulaire(objet,nb_repetition,axe_repetition,distance):
     elif axe_repetition == 'y':
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
-        for i in range (nb_repetition):
+        for i in range (nb_repetition+1):
             stack = nv*i
             v1[:,1] = v1[:,1] + offset
             f=np.vstack((f,f1+stack))
@@ -163,7 +163,7 @@ def repetition_rectangulaire(objet,nb_repetition,axe_repetition,distance):
     elif axe_repetition == 'z':
         f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
         
-        for i in range (nb_repetition):
+        for i in range (nb_repetition+1):
             stack = nv*i
             v1[:,2] = v1[:,2] + offset
             f=np.vstack((f,f1+stack))
