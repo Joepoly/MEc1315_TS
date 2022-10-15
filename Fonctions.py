@@ -71,10 +71,11 @@ def Centre_000(objet):
     
         
     
-def Fusion(*args):
+def Fusion(*args): 
     F,V,N = [],[],[]
     nv = 0
-    
+    if len(args) == 1:
+        args = args[:]
     for i in range(len(args)):
         F.append(args[i][0] + nv)
         V.append(args[i][1])
@@ -91,85 +92,46 @@ def Fusion(*args):
 
 
 def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset_x,offset_y,offset_z):
+    objet = Translation(objet, offset_x, offset_y, offset_z)
     f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
+    liste_objets = []
     nv=len(v1)
     angle= 2*np.pi/nb_repetition
-    
-    if axe_rotation=='x':
-        v1[:,1]=v1[:,1]+offset_y
-        v1[:,2]=v1[:,2]+offset_z
-        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
-        
-        for i in range (nb_repetition):
+    f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
+    for i in range (nb_repetition): 
+        if axe_rotation=='x':
             stack = nv*i
             f=np.vstack((f,f1+stack))
             v=np.vstack((v,np.dot(v1,Rx(i*angle))))
             n=np.vstack((n,np.dot(n1,Rx(i*angle))))
-        return f,v,n
-        
-    elif axe_rotation=='y':
-        v1[:,0]=v1[:,0]+offset_x
-        v1[:,2]=v1[:,2]+offset_z
-        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
-        
-        for i in range (nb_repetition):
+        elif axe_rotation=='y':        
             stack = nv*i
             f=np.vstack((f,f1+stack))
             v=np.vstack((v,np.dot(v1,Ry(i*angle))))
             n=np.vstack((n,n1))
-        return f,v,n
-        
-    elif axe_rotation=='z':
-        v1[:,0]=v1[:,0]+offset_x
-        v1[:,1]=v1[:,1]+offset_y
-        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
-        
-        for i in range (nb_repetition):
+        elif axe_rotation=='z':
             stack = nv*i
             f=np.vstack((f,f1+stack))
             v=np.vstack((v,np.dot(v1,Rz(i*angle))))
             n=np.vstack((n,np.dot(n1,Rz(i*angle))))
-        return f,v,n
+    return f,v,n
         
 def Repetition_Rectangulaire(objet,nb_repetition,axe_repetition,distance):
-    f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-    nv=len(v1)
     offset = 0
-    
-    if axe_repetition == 'x':
-        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
-        
-        for i in range (nb_repetition):
-            stack = nv*i
-            v1[:,0] = v1[:,0] + offset
-            f=np.vstack((f,f1+stack))
-            v=np.vstack((v,v1))
-            n=np.vstack((n,n1))
+    liste_objets = []
+    for i in range (nb_repetition):
+        if axe_repetition == 'x':
+            objet = Translation(objet, offset, 0, 0)
             offset = distance/nb_repetition
-        return f,v,n
-        
-    elif axe_repetition == 'y':
-        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
-        
-        for i in range (nb_repetition):
-            stack = nv*i
-            v1[:,1] = v1[:,1] + offset
-            f=np.vstack((f,f1+stack))
-            v=np.vstack((v,v1))
-            n=np.vstack((n,n1))
+            liste_objets.append(objet)   
+        elif axe_repetition == 'y':
+            objet = Translation(objet, 0, offset, 0)
             offset = distance/nb_repetition
-        return f,v,n
-        
-    elif axe_repetition == 'z':
-        f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
-        
-        for i in range (nb_repetition):
-            stack = nv*i
-            v1[:,2] = v1[:,2] + offset
-            f=np.vstack((f,f1+stack))
-            v=np.vstack((v,v1))
-            n=np.vstack((n,n1))
+            liste_objets.append(objet)
+        elif axe_repetition == 'z':
+            objet = Translation(objet, 0, 0, offset)
             offset = distance/nb_repetition
-        return f,v,n
+            liste_objets.append(objet)
+    return Fusion(*liste_objets)
         
         
