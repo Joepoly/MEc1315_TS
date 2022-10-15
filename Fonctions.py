@@ -69,25 +69,18 @@ def Centre_000(objet):
     v=v - np.array([x_centre,y_centre,z_centre])
     return f,v,n
     
-        
     
 def Fusion(*args): 
     F,V,N = [],[],[]
     nv = 0
-    if len(args) == 1:
-        args = args[:]
     for i in range(len(args)):
         F.append(args[i][0] + nv)
         V.append(args[i][1])
         N.append(args[i][2])
-        
-        
         nv= nv+ len(V[i])
-        
         f = np.vstack(F)
         v = np.vstack(V)
         n = np.vstack(N)
-        
     return f,v,n
 
 
