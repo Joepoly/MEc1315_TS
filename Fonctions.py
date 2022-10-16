@@ -84,12 +84,12 @@ def Fusion(*args):
     return f,v,n
 
 
-def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset_x,offset_y,offset_z):
+def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset_x,offset_y,offset_z,coefficient_pi):
     objet = Translation(objet, offset_x, offset_y, offset_z)
     f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     liste_objets = []
     nv=len(v1)
-    angle= 2*np.pi/nb_repetition
+    angle= coefficient_pi*np.pi/nb_repetition
     f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
     for i in range (nb_repetition): 
         if axe_rotation=='x':
