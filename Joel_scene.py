@@ -39,7 +39,7 @@ drapeau=Repetition_Rectangulaire(drapeau, 2, 'y', 4900)
 #=======================TEEMO=========================#
 perso=LireSTL('Teemo_nobase.stl')
 teemo=perso
-teemo=Homotetie(teemo, 12)
+teemo=Homotetie(teemo, 22)
 teemo=Translation(teemo, 0, 200, 20)
 teemo=Rotation_x_y_z(teemo, 'z', 290)
 
@@ -47,9 +47,8 @@ teemo=Rotation_x_y_z(teemo, 'z', 290)
 ico=LireSTL('icosahedron.stl')
 ballon=ico
 ballon=Homotetie(ballon, 60)
-ballon=Translation(ballon, -120, -300, 20)
-ballon=Repetition_Circulaire(ballon,random.randint(1, 10) , 'z', -10, 20,0)
-
+ballon=Translation(ballon, -1000, 0, 0)
+ballon=Repetition_Circulaire(ballon, random.randint(4, 9), 'y', 250, 0, 100, 0.5)
 
 
 
