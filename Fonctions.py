@@ -13,21 +13,17 @@ def Homotetie(objet,facteur):
     return f,v,n
 
 def Rotation_x_y_z(objet,axe,angle):
+    f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
+    rad=np.radians(angle)
     if axe =='x':
-        f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(angle)
         v=np.dot(v,Rx(rad))
         n=np.dot(n,Rx(rad))
-    
+
     elif axe =='y':
-        f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(angle)
         v=np.dot(v, Ry(rad))
         n=np.dot(n, Ry(rad))
         
     elif axe =='z':
-        f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
-        rad=np.radians(angle)
         v=np.dot(v, Rz(rad))
         n=np.dot(n, Rz(rad))
 
@@ -42,20 +38,18 @@ def Affinite (objet,facteur_x,facteur_y,facteur_z):
     return f,v,n    
     
 def Centre_Sur_Axe(objet,axe): 
+    f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
     if axe =='x':
-        f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         x_min=min(v[:,0])
         v=v-np.array([x_min,0,0])
         return f,n,v
     
     elif axe == 'y':
-        f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         y_min=min(v[:,1])
         v=v-np.array([0,y_min,0])
         return f,n,v
     
     elif axe =='z':
-        f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         z_min=min(v[:,2])
         v=v-np.array([0,0,z_min])
         return f,n,v
@@ -83,47 +77,22 @@ def Fusion(*args):
     return f,v,n
 
 
-def Repetition_Circulaire(objet,nb_repetition,axe_rotation,offset_x,offset_y,offset_z,coefficient_pi):
-    objet = Translation(objet, offset_x, offset_y, offset_z)
-    f1,v1,n1=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
+def Repetition_Circulaire(objet,nb_repetition,axe_rotation,rayon,angle_total):
+    objet = Translation(objet, rayon[0], rayon[1], rayon[2])
     liste_objets = []
-    nv=len(v1)
-    angle= coefficient_pi*np.pi/nb_repetition
-    f,v,n = np.empty([0,3]), np.empty([0,3]), np.empty([0,3])
+    angle= angle_total/nb_repetition
     for i in range (nb_repetition): 
-        if axe_rotation=='x':
-            stack = nv*i
-            f=np.vstack((f,f1+stack))
-            v=np.vstack((v,np.dot(v1,Rx(i*angle))))
-            n=np.vstack((n,np.dot(n1,Rx(i*angle))))
-        elif axe_rotation=='y':        
-            stack = nv*i
-            f=np.vstack((f,f1+stack))
-            v=np.vstack((v,np.dot(v1,Ry(i*angle))))
-            n=np.vstack((n,n1))
-        elif axe_rotation=='z':
-            stack = nv*i
-            f=np.vstack((f,f1+stack))
-            v=np.vstack((v,np.dot(v1,Rz(i*angle))))
-            n=np.vstack((n,np.dot(n1,Rz(i*angle))))
-    return f,v,n
+        objet = Rotation_x_y_z(objet, axe_rotation, angle)
+        liste_objets.append(objet)
+    return Fusion(*liste_objets)
         
-def Repetition_Rectangulaire(objet,nb_repetition,axe_repetition,distance):
-    offset = 0
+def Repetition_Rectangulaire(objet, nb_repetition, distance):
+    offset_x, offset_y, offset_z = 0,0,0
     liste_objets = []
-    for i in range (nb_repetition):
-        if axe_repetition == 'x':
-            objet = Translation(objet, offset, 0, 0)
-            offset = distance/nb_repetition
-            liste_objets.append(objet)   
-        elif axe_repetition == 'y':
-            objet = Translation(objet, 0, offset, 0)
-            offset = distance/nb_repetition
-            liste_objets.append(objet)
-        elif axe_repetition == 'z':
-            objet = Translation(objet, 0, 0, offset)
-            offset = distance/nb_repetition
-            liste_objets.append(objet)
+    for i in range (nb_repetition+1):
+        objet = Translation(objet, offset_x, offset_y, offset_z)
+        offset_x, offset_y, offset_z = distance[0]/nb_repetition, distance[1]/nb_repetition, distance[2]/nb_repetition
+        liste_objets.append(objet)
     return Fusion(*liste_objets)
         
         
