@@ -88,22 +88,22 @@ estradeBanc3 = Translation(estradeBanc3, -1500, 2166, 999)
 estrade = Fusion(estradeTriangle,estradeBanc1,estradeBanc2,estradeBanc3)
 
 #====================Spectateurs=========================
-perso1=LireSTL('Camille.stl')
-perso2=LireSTL('Fiora.stl')
-camille=perso1
-fiora=perso2
+# perso1=LireSTL('Camille.stl')
+# perso2=LireSTL('Fiora.stl')
+# camille=perso1
+# fiora=perso2
 
-camille=Homotetie(camille, 18)
-camille=Rotation_x_y_z(camille, 'z', -30)
-camille=Translation(camille, 1400, 1950,650)
-camille=Repetition_Rectangulaire(camille, 5, 'x', -3000)
+# camille=Homotetie(camille, 18)
+# camille=Rotation_x_y_z(camille, 'z', -30)
+# camille=Translation(camille, 1400, 1950,650)
+# camille=Repetition_Rectangulaire(camille, 5, 'x', -3000)
 
 
 
-fiora=Homotetie(fiora, 4)
-fiora=Rotation_x_y_z(fiora, 'z', -30)
-fiora=Translation(fiora, -550, 900, 350)
-fiora=Repetition_Rectangulaire(fiora,4 , 'x', 2500)
+# fiora=Homotetie(fiora, 4)
+# fiora=Rotation_x_y_z(fiora, 'z', -30)
+# fiora=Translation(fiora, -550, 900, 350)
+# fiora=Repetition_Rectangulaire(fiora,4 , 'x', 2500)
 
 
 #====================But==========================
@@ -176,12 +176,34 @@ but=Rotation_x_y_z(but, 'x', 180)
 but=Rotation_x_y_z(but, 'z', 90)
 but=Translation(but, -1300, -500, 800)
 
+#====================Mannequins==========================
+man1 = LireSTL('Cylindre.stl')
+man1 = Affinite(man1, 1, 1, 10)
+man1 = Repetition_Rectangulaire(man1, 3, 'x', 6)
 
 
+man2 = LireSTL('Cube.stl')
+man2 = Affinite(man2, 1, 1, 5)
+man2 = Rotation_x_y_z(man2,"y",90)
+man2 = Translation(man2,-0.5,-0.5,0)
+man2 = Repetition_Rectangulaire(man2, 2, 'z', 20)
+
+man3 = LireSTL('icosahedron.stl')
+man3 = Rotation_x_y_z(man3,"z",45)
+man3 = Affinite(man3, 4, 1, 4)
+man3 = Translation(man3,2,0,-5)
+
+
+man = Fusion(man1,man2,man3)
+man = Repetition_Rectangulaire(man, 3, 'x', 20)
+man = Affinite(man, 44, 44, 44)
+man = Rotation_x_y_z(man,"x",180)
+man = Rotation_x_y_z(man,"z",90)
+man = Translation(man,-200,-350,450)
 
 #================Fusion+export======================#
 
-terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade,fiora,camille,but)
+terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade,but,man)
 
 
 
