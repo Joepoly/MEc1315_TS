@@ -18,21 +18,20 @@ def Rotation_x_y_z(objet,axe,angle):
         rad=np.radians(angle)
         v=np.dot(v,Rx(rad))
         n=np.dot(n,Rx(rad))
-        return f,v,n
     
     elif axe =='y':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         rad=np.radians(angle)
         v=np.dot(v, Ry(rad))
         n=np.dot(n, Ry(rad))
-        return f,v,n
-    
+        
     elif axe =='z':
         f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
         rad=np.radians(angle)
         v=np.dot(v, Rz(rad))
         n=np.dot(n, Rz(rad))
-        return f,v,n
+
+    return f,v,n
     
 def Affinite (objet,facteur_x,facteur_y,facteur_z):
     f,v,n=np.array(objet[0]),np.array(objet[1]),np.array(objet[2])
