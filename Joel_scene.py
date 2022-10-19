@@ -164,7 +164,7 @@ but = Translation(but, -1350, 650, 30)
 #====================Mannequins==========================
 man1 = LireSTL('Cylindre.stl')
 man1 = Affinite(man1, 1, 1, 10)
-man1 = Repetition_Rectangulaire(man1, 2, [6,0,0])
+man1 = Repetition_Rectangulaire(man1, 2, [4,0,0])
 
 
 man2 = LireSTL('Cube.stl')
