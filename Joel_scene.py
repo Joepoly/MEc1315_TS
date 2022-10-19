@@ -17,6 +17,7 @@ terrain = LireSTL('Cube.stl')
 terrain = Affinite(terrain, 3000, 3000, 20)
 terrain = Centre_000(terrain)
 terrain = Translation(terrain, 0, 0, 10)
+
 #=======================Drapeaux de coin======================
 tige = LireSTL('Cylindre.stl')
 tige = Affinite(tige, 30, 30, 300)
@@ -76,26 +77,19 @@ estradeBanc = Repetition_Rectangulaire(estradeBanc, 3, [0,666,666])
 
 estrade = Fusion(estradeTriangle,estradeBanc)
 
-#====================Spectateurs=========================
-perso1=LireSTL('Camille.stl')
-perso2=LireSTL('Fiora.stl')
-camille=perso1
-fiora=perso2
+#====================Joueurs=========================
+camille=LireSTL('Camille.stl')
 
-x_camille = np.random.randint(0,1400)
-x_fiora = x_camille + 500 + np.random.randint(0,1200)
-
-camille=Homotetie(camille, 18)
+camille=Homotetie(camille, 22)
 camille=Rotation_x_y_z(camille, 'z', -30)
-camille=Translation(camille, -1400, 1600,350)
-camille=Translation(camille, x_camille, 0, 0)
+camille=Translation(camille, 0, -1350,0)
+camille=Translation(camille, np.random.randint(0,1200), np.random.randint(0,700), 0)
 
-
-fiora=Homotetie(fiora, 4)
+fiora=LireSTL('Fiora.stl')
+fiora=Homotetie(fiora, 5)
 fiora=Rotation_x_y_z(fiora, 'z', -30)
-fiora=Translation(fiora, -1200, 900, 350)
-fiora=Translation(fiora, x_fiora, 0, 0)
-
+fiora=Translation(fiora, 400, 300, 50)
+fiora=Translation(fiora, np.random.randint(0,1000), np.random.randint(-500,0), 0)
 
 #====================But==========================
 
