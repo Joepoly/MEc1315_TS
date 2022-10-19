@@ -77,7 +77,37 @@ estradeBanc = Repetition_Rectangulaire(estradeBanc, 3, [0,666,666])
 
 estrade = Fusion(estradeTriangle,estradeBanc)
 
-#====================Joueurs=========================
+#========================Spectateurs==============================
+corps = LireSTL('Cylindre.stl')
+corps = Affinite(corps, 0.75, 0.75, 1)
+
+tete = LireSTL('icosahedron.stl')
+tete = Translation(tete, 0, 0, 1)
+
+chaise1 = LireSTL('Cube.stl')
+chaise1 = Affinite(chaise1, 1.5, 1.5, 0.1)
+chaise1 = Centre_000(chaise1)
+chaise2 = Rotation_x_y_z(chaise1, 'y', -90)
+chaise2 = Translation(chaise2, 0.75, 0, 0.75)
+chaise = Fusion(chaise1,chaise2)
+
+bras = LireSTL('Cylindre.stl')
+bras = Rotation_x_y_z(bras, 'x', 90)
+bras = Affinite(bras, 0.25, 1, 0.25)
+bras = Translation(bras, 0, 0, 0.5)
+bras = Repetition_Rectangulaire(bras, 1, [0,1,0])
+
+jambes = LireSTL('Cylindre.stl')
+jambes = Rotation_x_y_z(jambes, 'y', 90)
+jambes = Affinite(jambes, 1, 0.25, 0.25)
+jambes = Translation(jambes, -1, 0.25, 0.1)
+jambes = Repetition_Rectangulaire(jambes, 1, [0,-0.5,0])
+
+bonhomme = Fusion(corps,tete,chaise,bras,jambes)
+bonhomme = Homotetie(bonhomme, 100)
+
+
+#=========================Joueurs==============================
 camille=LireSTL('Camille.stl')
 
 camille=Homotetie(camille, 22)
@@ -94,72 +124,42 @@ fiora=Translation(fiora, np.random.randint(0,1000), np.random.randint(-500,0), 0
 #====================But==========================
 
 but1 = LireSTL('Cylindre.stl')
-but1 = Affinite(but1, 1, 1, 15)
-but1 = Repetition_Rectangulaire(but1, 1, [20,0,0])
-but1 = Repetition_Rectangulaire(but1, 1, [0,10,0])
-
+but1 = Affinite(but1, 50, 50, 750)
+but1 = Repetition_Rectangulaire(but1, 1, [1000,0,0])
 
 but2 = LireSTL('Cylindre.stl')
-but2 = Affinite(but2, 1, 1, 21)
-but2 = Rotation_x_y_z(but2,"y",90)
-but2 = Translation(but2,-0.5,0,0)
-but3 = Repetition_Rectangulaire(but2, 1, [0,0,14.5])
-but2 = Repetition_Rectangulaire(but2, 1, [0,10,0])
+but2 = Affinite(but2, 50, 50, 1000)
+but2 = Rotation_x_y_z(but2, 'y', 90)
+but2 = Translation(but2, 0, 0, 25)
+but2 = Repetition_Rectangulaire(but2, 1, [0,0,700])
 
+but3 = LireSTL('Cylindre.stl')
+but3 = Affinite(but3, 0.5, 0.5, 750)
+but3 = Repetition_Rectangulaire(but3, 50, [1000,0,0])
 
 but4 = LireSTL('Cylindre.stl')
-but4 = Affinite(but4, 1, 1, 10)
-but4 = Rotation_x_y_z(but4,"y",90)
-but4 = Rotation_x_y_z(but4,"z",90)
-but4 = Repetition_Rectangulaire(but4, 1, [0,0,14.5])
-but4 = Repetition_Rectangulaire(but4, 1, [20,0,0])
+but4 = Affinite(but4, 0.5, 0.5, 1000)
+but4 = Rotation_x_y_z(but4, 'y', 90)
+but4 = Repetition_Rectangulaire(but4, 40, [0,0,750])
+
+face_but1 = Fusion(but1,but2,but3,but4)
+face_but1 = Rotation_x_y_z(face_but1, 'y', -90)
+
+face_but2 = Rotation_x_y_z(face_but1, 'x', 90)
+face_but2 = Translation(face_but2, 0, 1000, 1000)
+face_but2 = Affinite(face_but2, 1, 1.5, 1)
+
+face_but3 = Rotation_x_y_z(face_but2, 'y', 90)
+face_but3 = Translation(face_but3, -1025, 0, 0)
+face_but3 = Affinite(face_but3, 1, 1, 1000/750)
+
+face_but1 = Repetition_Rectangulaire(face_but1, 1, [0,1500,0])
 
 
-but5 = LireSTL('Cylindre.stl')
-but5 = Affinite(but5, 0.01, 0.01, 15)
-but5 = Repetition_Rectangulaire(but5, 50, [20,0,0])
-
-
-but6 = LireSTL('Cylindre.stl')
-but6 = Affinite(but6, 0.01, 0.01, 20)
-but6 = Rotation_x_y_z(but6,"y",90)
-but6 = Repetition_Rectangulaire(but6, 35, [0,0,15])
-
-
-but7 = LireSTL('Cylindre.stl')
-but7 = Affinite(but7, 0.01, 0.01, 15)
-but7 = Repetition_Rectangulaire(but7, 25, [0,10,0])
-
-
-but8 = LireSTL('Cylindre.stl')
-but8 = Affinite(but8, 0.01, 0.01, 10)
-but8 = Rotation_x_y_z(but8,"x",-90)
-but8 = Repetition_Rectangulaire(but8, 35, [0,0,15])
-
-
-but9 = Fusion(but7,but8)
-but9 = Translation(but9,20,0,0)
-
-
-but10 = LireSTL('Cylindre.stl')
-but10 = Affinite(but10, 0.01, 0.01, 10)
-but10 = Repetition_Rectangulaire(but10, 50, [20,0,0])
-but10 = Rotation_x_y_z(but10,"x",-90)
-
-
-but11 = LireSTL('Cylindre.stl')
-but11 = Affinite(but11, 0.01, 0.01, 20)
-but11 = Rotation_x_y_z(but11,"y",90)
-but11 = Repetition_Rectangulaire(but11, 25, [0,0,10])
-but11 = Rotation_x_y_z(but11,"x",-90)
-
-
-but = Fusion(but1,but2,but3,but4,but5,but6,but7,but8,but9,but10,but11)
-
-but= Homotetie(but, 50)
-but=Rotation_x_y_z(but, 'x', 180)
-but=Rotation_x_y_z(but, 'z', 90)
-but=Translation(but, -1300, -500, 800)
+but = Fusion(face_but1,face_but2,face_but3)
+but = Homotetie(but, 0.8)
+but = Rotation_x_y_z(but, 'z', 180)
+but = Translation(but, -1350, 650, 30)
 
 #====================Mannequins==========================
 man1 = LireSTL('Cylindre.stl')
@@ -189,7 +189,7 @@ man = Translation(man,-200,-350,450)
 
 #================Fusion+export======================#
  
-terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade,but, camille, fiora, man)
+terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man)
 
 
 
