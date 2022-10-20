@@ -31,19 +31,39 @@ drapeau = Rotation_x_y_z(drapeau, 'z', -90)
 drapeau = Translation(drapeau, -785, -1215, 600)
 drapeau = Repetition_Rectangulaire(drapeau, 1, [0,2450,0])
 
-#=======================TEEMO=========================
+
+#=======================Random=========================
+z_ballon = np.random.randint(-350,0)
+nbr_ballon = 0
+angle_ballon = 0
+x_teemo, y_teemo, z_teemo = 0,0,0
+
+if z_ballon <= -200 :
+    nbr_ballon = 5
+    angle_ballon = -47.5
+    z_teemo = -50
+    y_teemo = 700
+
+else:
+    nbr_ballon = 10
+    angle_ballon = -100
+    z_teemo = 100
+    y_teemo = 750
+
+#=========================Teemo==========================
 teemo = LireSTL('Teemo_nobase.stl')
 teemo = Homotetie(teemo, 22)
-teemo = Translation(teemo, 200, 700, 100)
-teemo = Rotation_x_y_z(teemo, 'z', 290)
+teemo = Translation(teemo, 0, y_teemo, z_teemo)
+teemo = Rotation_x_y_z(teemo, 'z', -90)
 teemo = Rotation_x_y_z(teemo, 'y', -20)
 
 #=======================Ballon=========================
+
 ballon = LireSTL('icosahedron.stl')
 ballon = Homotetie(ballon, 100)
-ballon = Translation(ballon, -1000, 0, 0)
-ballon = Repetition_Circulaire(ballon, 9, 'y', [20,0,100], 110)
-ballon = Rotation_x_y_z(ballon, 'z', np.random.randint(-25,25))
+ballon = Translation(ballon, 200, 0, 900)
+ballon = Repetition_Circulaire(ballon, nbr_ballon, 'y', [200,0,0], angle_ballon)
+ballon = Translation(ballon, 0, 0, z_ballon)
 
 #=======================Lumieres=========================
 panneau1 = LireSTL('Cylindre.stl')
@@ -166,7 +186,6 @@ man1 = LireSTL('Cylindre.stl')
 man1 = Affinite(man1, 1, 1, 10)
 man1 = Repetition_Rectangulaire(man1, 2, [4,0,0])
 
-
 man2 = LireSTL('Cube.stl')
 man2 = Affinite(man2, 1, 1, 5)
 man2 = Rotation_x_y_z(man2,"y",90)
@@ -184,7 +203,7 @@ man = Repetition_Rectangulaire(man, 2, [20,0,0])
 man = Affinite(man, 44, 44, 44)
 man = Rotation_x_y_z(man,"x",180)
 man = Rotation_x_y_z(man,"z",90)
-man = Translation(man,-200,-350,450)
+man = Translation(man,-500,-500,450)
 
 #====================Gazon==========================
 
@@ -223,7 +242,7 @@ cone3 = Fusion(cone1,cone2)
 cone4 = Repetition_Rectangulaire(cone3, 4, [-2000,0,0])
 cone5 = Repetition_Rectangulaire(cone3, 4, [0,2500,0])
 
-cone = Fusion (cone3,cone4,cone5)
+cone = Fusion (cone4,cone5)
 cone = Translation(cone,1350,-1350,20)
 #================Fusion+export======================#
  
