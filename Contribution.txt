@@ -1,21 +1,23 @@
-Création des fonctions:
+Creation des fonctions:
 Joel et Mena
 
-Optimisation des fonctions:
+Optimisation des fonctions/code:
 Mena
 
-Idée originale 
+Idee originale: 
 Issam, Marko, Mena, Joel
 
-Cération terrain, drapeau, ballon :
+Creation du terrain, drapeau, ballon :
 Joel
 
-Création but,mannequins:
+Création but,mannequins,feux d'artifices,texture gazon:
 Marko
 
-Création lumieres et estrades 
+Creation lumieres et estrades,spectateurs : 
 Issam,Mena
 
 Ajout des objets dans la scene : 
 Issam,Mena,Marko,Joel
+
+
 
