@@ -20,15 +20,15 @@ terrain = Translation(terrain, 0, 0, 10)
 
 #=======================Drapeaux de coin======================
 tige = LireSTL('Cylindre.stl')
-tige = Affinite(tige, 30, 30, 300)
+tige = Affinite(tige, 30, 30, 600)
 tige = Translation(tige, -800, -1230, 0)
 tige = Repetition_Rectangulaire(tige, 1, [0,2450,0])
 
 drapeau = LireSTL('Triangle.stl')
-drapeau = Affinite(drapeau, 50, 50, 30)
+drapeau = Affinite(drapeau, 100, 100, 60)
 drapeau = Rotation_x_y_z(drapeau, 'y', 90)
 drapeau = Rotation_x_y_z(drapeau, 'z', -90)
-drapeau = Translation(drapeau, -785, -1215, 300)
+drapeau = Translation(drapeau, -785, -1215, 600)
 drapeau = Repetition_Rectangulaire(drapeau, 1, [0,2450,0])
 
 #=======================TEEMO=========================
@@ -206,11 +206,28 @@ gazon3 = Fusion(gazon1,gazon2)
 gazon3 = Repetition_Rectangulaire(gazon3, 2, [2000,0,0])
 
 gazon = Fusion(gazon1,gazon2,gazon3)
-gazon = Translation(gazon,-1500,-1500,10)
+gazon = Translation(gazon,-1500,-1500,20)
 
+#====================Cone==========================
+
+cone1= LireSTL('Triangle.stl')
+cone1 = Affinite(cone1,200,70,1)
+cone1 = Rotation_x_y_z(cone1, "y", -90)
+cone1 = Repetition_Circulaire(cone1, 360, "z", [0,0,0], 360)
+
+cone2 = LireSTL('Cube.stl')
+cone2 = Affinite(cone2,200,200,10)
+cone2 = Centre_000(cone2)
+
+cone3 = Fusion(cone1,cone2)
+cone4 = Repetition_Rectangulaire(cone3, 4, [-2000,0,0])
+cone5 = Repetition_Rectangulaire(cone3, 4, [0,2500,0])
+
+cone = Fusion (cone3,cone4,cone5)
+cone = Translation(cone,1350,-1350,20)
 #================Fusion+export======================#
  
-terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man,gazon)
+terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man, gazon, cone)
 
 
 
