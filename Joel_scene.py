@@ -37,13 +37,15 @@ z_ballon = np.random.randint(-350,0)
 nbr_ballon = 0
 angle_ballon = 0
 y_teemo, z_teemo = 0,0
+a_marque = True
 
 if z_ballon <= -200 :
     nbr_ballon = 5
     angle_ballon = -47.5
     z_teemo = -50
     y_teemo = 700
-
+    a_marque = False
+    
 else:
     nbr_ballon = 10
     angle_ballon = -100
@@ -264,9 +266,31 @@ cone5 = Repetition_Rectangulaire(cone3, 4, [0,2500,0])
 
 cone = Fusion (cone4,cone5)
 cone = Translation(cone,1350,-1350,20)
+
+#====================Feux d'artifice==========================
+
+boite = LireSTL('Cube.stl')
+boite = Affinite(boite, 100, 100, 300)
+boite = Centre_000(boite)
+boite = Translation(boite, 0,0,150)
+
+    
+if a_marque:
+    feu = LireSTL('Cylindre.stl')
+    feu = Affinite(feu, 10, 10, 800)
+    feu = Rotation_x_y_z(feu, "x", 30)
+    feu = Repetition_Circulaire(feu, 10, "z", [40,0,0], 360)
+    feu = Translation(feu, 0,0,300)
+    fire = Fusion(boite,feu)
+
+else:
+    fire = boite
+
+fire = Translation(fire, -1400,-900,0)
+fire = Repetition_Rectangulaire(fire, 1, [0,1900,0])
 #================Fusion+export======================#
  
-terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man, gazon, cone)
+terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man, gazon, cone,fire)
 
 
 
