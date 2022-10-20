@@ -36,7 +36,7 @@ drapeau = Repetition_Rectangulaire(drapeau, 1, [0,2450,0])
 z_ballon = np.random.randint(-350,0)
 nbr_ballon = 0
 angle_ballon = 0
-x_teemo, y_teemo, z_teemo = 0,0,0
+y_teemo, z_teemo = 0,0
 
 if z_ballon <= -200 :
     nbr_ballon = 5
@@ -74,7 +74,7 @@ panneau2 = Affinite(panneau2, 100, 600, 400)
 panneau2 = Centre_000(panneau2)
 panneau2 = Translation(panneau2, -1400, -1400, 1500)
 lumieres = LireSTL('icosahedron.stl')
-lumieres = Affinite(lumieres, 100, 100, 100)
+lumieres = Homotetie(lumieres, 100)
 lumieres = Repetition_Rectangulaire(lumieres, 2, [0,450,0])
 lumieres = Repetition_Rectangulaire(lumieres, 1, [0,0,200])
 lumieres = Centre_000(lumieres)
@@ -208,14 +208,14 @@ man = Translation(man,-500,-500,450)
 #====================Gazon==========================
 
 gazon1 = LireSTL('icosahedron.stl')
-gazon1 = Affinite (gazon1,20,0,30)
+gazon1 = Affinite (gazon1,20,1,30)
 gazon1 = Rotation_x_y_z(gazon1, "x", 45)
 gazon1 = Repetition_Rectangulaire(gazon1, 15, [500,0,0])
 gazon1 = Repetition_Rectangulaire(gazon1, 100, [0,2990,0])
 gazon1 = Translation(gazon1,0,10,0)
 
 gazon2 = LireSTL('icosahedron.stl')
-gazon2 = Affinite (gazon2,20,0,30)
+gazon2 = Affinite (gazon2,20,1,30)
 gazon2 = Rotation_x_y_z(gazon2, "x", -45)
 gazon2 = Repetition_Rectangulaire(gazon2, 15, [500,0,0])
 gazon2 = Repetition_Rectangulaire(gazon2, 100, [0,2990,0])
@@ -235,8 +235,9 @@ cone1 = Rotation_x_y_z(cone1, "y", -90)
 cone1 = Repetition_Circulaire(cone1, 360, "z", [0,0,0], 360)
 
 cone2 = LireSTL('Cube.stl')
-cone2 = Affinite(cone2,200,200,10)
+cone2 = Affinite(cone2,150,150,30)
 cone2 = Centre_000(cone2)
+cone2 = Translation(cone2, 0, 0, 15)
 
 cone3 = Fusion(cone1,cone2)
 cone4 = Repetition_Rectangulaire(cone3, 4, [-2000,0,0])
