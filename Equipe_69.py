@@ -236,13 +236,12 @@ cone = Translation(cone,1350,-1350,20)
 boite = Affinite(cube, 100, 100, 300)
 boite = Centre_000(boite)
 boite = Translation(boite, 0,0,150)
-
+feu = Affinite(cylindre, 10, 10, 800)
+feu = Rotation_x_y_z(feu, "x", 30)
+feu = Repetition_Circulaire(feu, 10, "z", [40,0,0], 360)
+feu = Translation(feu, 0,0,300)
     
 if a_marque:
-    feu = Affinite(cylindre, 10, 10, 800)
-    feu = Rotation_x_y_z(feu, "x", 30)
-    feu = Repetition_Circulaire(feu, 10, "z", [40,0,0], 360)
-    feu = Translation(feu, 0,0,300)
     fire = Fusion(boite,feu)
 
 else:
@@ -252,7 +251,7 @@ fire = Translation(fire, -1400,-900,0)
 fire = Repetition_Rectangulaire(fire, 1, [0,1900,0])
 #================Fusion+export======================#
  
-terrain_f=Fusion(terrain,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man, gazon, cone,fire)
+terrain_f=Fusion(terrain,cone,tige,drapeau,teemo,ballon,panneau,estrade, bonhomme, but, camille, fiora, man, gazon,fire)
 
 
 
