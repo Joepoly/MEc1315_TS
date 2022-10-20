@@ -89,13 +89,26 @@ estradeTriangle = Rotation_x_y_z(estradeTriangle, 'y', -90)
 estradeTriangle = Rotation_x_y_z(estradeTriangle, 'z', 180)
 estradeTriangle = Affinite(estradeTriangle, 3000, 1000, 1000)
 estradeTriangle = Translation(estradeTriangle, -1500, 2500, 0)
+
 estradeBanc= LireSTL('Triangle.stl')
 estradeBanc = Rotation_x_y_z(estradeBanc, 'y', 90)
-estradeBanc= Affinite(estradeBanc, 3000, 333, 333)
-estradeBanc = Translation(estradeBanc, -1500, 1500, 333)
-estradeBanc = Repetition_Rectangulaire(estradeBanc, 3, [0,666,666])
+estradeBanc= Affinite(estradeBanc, 3000, 1000/6, 1000/6)
+estradeBanc = Translation(estradeBanc, -1500, 1500, 1000/6)
+estradeBanc = Repetition_Rectangulaire(estradeBanc, 5, [0,1000-(1000/6),1000-(1000/6)])
 
-estrade = Fusion(estradeTriangle,estradeBanc)
+
+barriereV= LireSTL('Cylindre.stl')
+barriereV=Affinite(barriereV,30,30,(1000/6)-15)
+barriereH=Rotation_x_y_z(barriereV,'x',-90)
+barriereH=Translation(barriereH,0,-15,(1000/6)-30)
+barriere=Fusion(barriereH,barriereV)
+barriere=Translation(barriere,-1470,1530,1000/6)
+barriere=Repetition_Rectangulaire(barriere, 4, [0,1000-(2000/6),1000-(2000/6)] )
+
+barriere=Repetition_Rectangulaire(barriere, 1, [2900,0,0] )
+
+
+estrade = Fusion(estradeTriangle,estradeBanc,barriere)
 
 #========================Spectateurs==============================
 corps = LireSTL('Cylindre.stl')
@@ -125,6 +138,12 @@ jambes = Repetition_Rectangulaire(jambes, 1, [0,-0.5,0])
 
 bonhomme = Fusion(corps,tete,chaise,bras,jambes)
 bonhomme = Homotetie(bonhomme, 100)
+
+bonhomme=Rotation_x_y_z(bonhomme, 'z', 90)
+bonhomme=Translation(bonhomme,-1350,1580,(1000/6)+10)
+bonhomme=Repetition_Rectangulaire(bonhomme,  4, [0,1000-(2000/6),1000-(2000/6)])
+bonhomme=Repetition_Rectangulaire(bonhomme, 9,[2650,0,0] )
+
 
 
 #=========================Joueurs==============================
